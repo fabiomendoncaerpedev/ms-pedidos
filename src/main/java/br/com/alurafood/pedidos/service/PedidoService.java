@@ -1,5 +1,6 @@
 package br.com.alurafood.pedidos.service;
 
+import br.com.alurafood.pedidos.dto.ItemDoPedidoDto;
 import br.com.alurafood.pedidos.dto.PedidoDto;
 import br.com.alurafood.pedidos.dto.StatusDto;
 import br.com.alurafood.pedidos.model.Pedido;
@@ -37,6 +38,15 @@ public class PedidoService {
                 .orElseThrow(EntityNotFoundException::new);
 
         return modelMapper.map(pedido, PedidoDto.class);
+    }
+
+    public List<ItemDoPedidoDto> obterItensDoPedidoPorId(Long id) {
+        Pedido pedido = repository.findById(id)
+                .orElseThrow(EntityNotFoundException::new);
+
+        return pedido.getItens().stream()
+                .map(item -> modelMapper.map(item, ItemDoPedidoDto.class))
+                .collect(Collectors.toList());
     }
 
     public PedidoDto criarPedido(PedidoDto dto) {

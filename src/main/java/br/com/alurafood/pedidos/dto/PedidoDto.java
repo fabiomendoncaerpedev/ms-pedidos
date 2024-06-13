@@ -12,12 +12,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PedidoDto {
-
     private Long id;
     private LocalDateTime dataHora;
     private Status status;
     private List<ItemDoPedidoDto> itens = new ArrayList<>();
-
-
-
 }
